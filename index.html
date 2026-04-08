@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>phData TA — AI Prompt Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a183c;--green:#1ABC9C;--blue:#264369;--lgray:#eaecf0;--mgray:#93a1b5;--dgray:#333332;--white:#ffffff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:#f0f2f5;color:var(--dgray);font-size:13px;}
+
+/* HEADER */
+header{background:var(--navy);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;}
+header h1{color:#fff;font-size:17px;font-weight:700;}
+header p{color:var(--mgray);font-size:11px;margin-top:2px;}
+.header-badge{background:var(--green);color:var(--navy);font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:28px 24px 60px;}
+
+/* RECIPE BANNER */
+.recipe{background:var(--navy);border-radius:10px;padding:22px 28px;margin-bottom:28px;}
+.recipe h2{color:#fff;font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.recipe h2 span{color:var(--green);}
+.recipe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.recipe-step{background:rgba(255,255,255,.06);border:1px solid rgba(26,188,156,.3);border-radius:6px;padding:10px 12px;}
+.step-num{font-size:18px;font-weight:700;color:var(--green);line-height:1;}
+.step-title{font-size:10px;font-weight:600;color:#fff;margin:3px 0;}
+.step-body{font-size:9.5px;color:var(--mgray);line-height:1.45;}
+
+/* TIPS BAR */
+.tips{background:var(--lgray);border-left:4px solid var(--green);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:28px;}
+.tips h3{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+.tips-row{display:flex;flex-wrap:wrap;gap:8px;}
+.tip{background:#fff;border:1px solid #dde2ea;border-radius:20px;padding:4px 12px;font-size:11px;color:var(--blue);}
+.tip span{color:var(--green);font-weight:700;margin-right:3px;}
+
+/* TABS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;padding:6px 14px;border:1.5px solid var(--blue);border-radius:20px;background:transparent;color:var(--blue);cursor:pointer;transition:.2s;}
+.tab:hover,.tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.tab.all.active{background:var(--navy);border-color:var(--navy);}
+
+/* PROMPT CARDS */
+.prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.prompt-card{background:#fff;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.07);overflow:hidden;display:flex;flex-direction:column;}
+.card-header{padding:14px 16px 10px;border-bottom:1px solid var(--lgray);}
+.card-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.cat-sourcing{color:#1b7a63;} .cat-jd{color:var(--blue);} .cat-messaging{color:#7b5ea7;}
+.cat-summarizing{color:#c47d0e;} .cat-screening{color:#c0392b;} .cat-misc{color:var(--mgray);}
+.card-title{font-size:13px;font-weight:700;color:var(--navy);}
+.card-meta{font-size:10px;color:var(--mgray);margin-top:3px;}
+.card-body{padding:12px 16px;flex:1;}
+.when-label{font-size:9.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.when-text{font-size:11px;color:var(--dgray);line-height:1.5;margin-bottom:10px;}
+.prompt-box{background:#f8f9fb;border:1px solid var(--lgray);border-radius:5px;padding:10px 12px;font-size:11px;line-height:1.7;color:var(--dgray);white-space:pre-wrap;font-family:'Poppins',sans-serif;max-height:180px;overflow-y:auto;}
+.prompt-box .fill{color:var(--green);font-weight:600;}
+.card-footer{padding:10px 16px;border-top:1px solid var(--lgray);display:flex;justify-content:space-between;align-items:center;}
+.copy-btn{font-family:'Poppins',sans-serif;background:var(--navy);color:#fff;border:none;border-radius:5px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;transition:.2s;}
+.copy-btn:hover{background:var(--green);color:var(--navy);}
+.copy-btn.copied{background:var(--green);color:var(--navy);}
+.pill{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--lgray);color:var(--blue);}
+
+/* HIDDEN */
+.hidden{display:none;}
+
+/* FOOTER */
+.page-footer{text-align:center;margin-top:40px;font-size:10px;color:var(--mgray);}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>⬡ phData TA — AI Prompt Library</h1>
+    <p>Copy, paste, customize. Always review before sending.</p>
+  </div>
+  <div class="header-badge">Q1 2026</div>
+</header>
+
+<div class="container">
+
+<!-- 5-PART RECIPE -->
+<div class="recipe">
+  <h2>⚡ The <span>5-Part Prompt Recipe</span> — use this every time</h2>
+  <div class="recipe-grid">
+    <div class="recipe-step"><div class="step-num">1</div><div class="step-title">Role</div><div class="step-body">Tell AI who to act as<br><em>"Act as an experienced recruiter…"</em></div></div>
+    <div class="recipe-step"><div class="step-num">2</div><div class="step-title">Task</div><div class="step-body">Tell AI exactly what you want<br><em>"Draft a LinkedIn InMail…"</em></div></div>
+    <div class="recipe-step"><div class="step-num">3</div><div class="step-title">Context</div><div class="step-body">Give relevant background<br><em>"The role is Sr. DE, hybrid, Minneapolis…"</em></div></div>
+    <div class="recipe-step"><div class="step-num">4</div><div class="step-title">Constraints</div><div class="step-body">Set limits & guardrails<br><em>"Under 150 words, no jargon…"</em></div></div>
+    <div class="recipe-step"><div class="step-num">5</div><div class="step-title">Output</div><div class="step-body">Specify the format<br><em>"Write as a short paragraph, ready to send…"</em></div></div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="tips">
+  <h3>Quick Tips — the 60-second version</h3>
+  <div class="tips-row">
+    <div class="tip"><span>✅</span>Vague prompt = vague answer. Be specific.</div>
+    <div class="tip"><span>✅</span>Always tell it the audience (HM, candidate, exec)</div>
+    <div class="tip"><span>✅</span>Specify tone: professional / casual / concise</div>
+    <div class="tip"><span>✅</span>If the first output isn't right — refine, don't restart</div>
+    <div class="tip"><span>🚫</span>Never paste candidate names or personal data</div>
+    <div class="tip"><span>🚫</span>Never send AI output without reviewing it first</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab all active" onclick="filter('all')">All Prompts</button>
+  <button class="tab" onclick="filter('sourcing')">Sourcing</button>
+  <button class="tab" onclick="filter('jd')">Job Descriptions</button>
+  <button class="tab" onclick="filter('messaging')">Messaging</button>
+  <button class="tab" onclick="filter('summarizing')">Summarizing</button>
+  <button class="tab" onclick="filter('screening')">Screening</button>
+  <button class="tab" onclick="filter('misc')">Misc</button>
+</div>
+
+<!-- PROMPT GRID -->
+<div class="prompt-grid" id="grid">
+
+<!-- 1. Boolean Builder -->
+<div class="prompt-card" data-cat="sourcing">
+  <div class="card-header">
+    <div class="card-cat cat-sourcing">Sourcing</div>
+    <div class="card-title">Boolean String Builder</div>
+    <div class="card-meta">Best for: LinkedIn Recruiter, job boards</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need a Boolean search string for a role and want to save 10+ minutes of manual string-building.</div>
+    <div class="prompt-box" id="p1">Act as an expert technical recruiter with 10+ years sourcing data and AI talent.
+
+Build a Boolean search string for LinkedIn Recruiter to find candidates for a <span class="fill">[JOB TITLE]</span> role at a <span class="fill">[COMPANY TYPE]</span>.
+
+Key requirements:
+- <span class="fill">[SKILL 1]</span>
+- <span class="fill">[SKILL 2]</span>
+- <span class="fill">[SKILL 3]</span>
+
+Location: <span class="fill">[CITY / REMOTE]</span>
+Exclude: <span class="fill">[TITLES OR COMPANIES TO EXCLUDE]</span>
+
+Output a clean Boolean string I can paste directly into LinkedIn Recruiter. Then give me 2 alternate versions — one broader, one narrower.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Sourcing</span>
+    <button class="copy-btn" onclick="copyPrompt('p1',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 2. Target Company List -->
+<div class="prompt-card" data-cat="sourcing">
+  <div class="card-header">
+    <div class="card-cat cat-sourcing">Sourcing</div>
+    <div class="card-title">Target Company List Generator</div>
+    <div class="card-meta">Best for: outbound sourcing campaigns</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need a list of companies where your ideal candidate profile is likely to work right now.</div>
+    <div class="prompt-box" id="p2">Act as a talent sourcing strategist.
+
+I'm recruiting for a <span class="fill">[JOB TITLE]</span> role focused on <span class="fill">[KEY SKILL / DOMAIN]</span>.
+
+Give me a list of 15 target companies where strong candidates for this role are likely working today. Include:
+- Company name
+- Why it's a good source (1 sentence)
+- Likely job title they'd hold there
+
+Focus on: <span class="fill">[INDUSTRY / COMPANY TYPE / SIZE]</span>
+Exclude: phData and direct competitors I shouldn't poach from: <span class="fill">[LIST IF ANY]</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Sourcing</span>
+    <button class="copy-btn" onclick="copyPrompt('p2',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 3. Two Levels One JD -->
+<div class="prompt-card" data-cat="jd">
+  <div class="card-header">
+    <div class="card-cat cat-jd">Job Descriptions</div>
+    <div class="card-title">Two Levels, One JD</div>
+    <div class="card-meta">Best for: Lead / Principal, Sr / Lead roles</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need one posting that covers two levels without anchoring candidate expectations to a specific title.</div>
+    <div class="prompt-box" id="p3">Act as an organizational psychologist and executive recruiting expert with 20+ years in consulting.
+
+I need to write a single job description that covers both <span class="fill">[LEVEL 1, e.g. Lead]</span> and <span class="fill">[LEVEL 2, e.g. Principal]</span> for a <span class="fill">[ROLE NAME]</span> at phData.
+
+The posting title should read: <span class="fill">[BROAD TITLE, e.g. "Data Governance Leader"]</span>
+At the top of the JD body, add: "Target Levels: Lead or Principal"
+
+In the responsibilities and requirements sections, include clear differentiators for each level so candidates can self-identify — without us committing to a title upfront.
+
+Here is the draft JD to work from:
+<span class="fill">[PASTE JD HERE]</span>
+
+Condense it, remove redundancies, keep all critical information, and add level differentiators. Ask me if you need clarification.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Job Descriptions</span>
+    <button class="copy-btn" onclick="copyPrompt('p3',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 4. JD Simplifier -->
+<div class="prompt-card" data-cat="jd">
+  <div class="card-header">
+    <div class="card-cat cat-jd">Job Descriptions</div>
+    <div class="card-title">JD Simplifier & Tightener</div>
+    <div class="card-meta">Best for: cleaning up long or stale JDs</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">A JD is too long, has jargon, or doesn't reflect what we're actually hiring for.</div>
+    <div class="prompt-box" id="p4">Act as a senior talent brand specialist at a data and AI consulting firm.
+
+Rewrite the job description below to be:
+- Shorter (target: under 400 words)
+- Clear and jargon-free
+- Compelling to a <span class="fill">[SENIORITY LEVEL]</span> candidate who values impact and technical challenge
+- Accurate to what we actually need (don't add fluff)
+
+Keep all must-have requirements. Remove anything that's nice-to-have padding.
+
+JD to rewrite:
+<span class="fill">[PASTE JD HERE]</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Job Descriptions</span>
+    <button class="copy-btn" onclick="copyPrompt('p4',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 5. LinkedIn InMail -->
+<div class="prompt-card" data-cat="messaging">
+  <div class="card-header">
+    <div class="card-cat cat-messaging">Messaging</div>
+    <div class="card-title">LinkedIn InMail — First Touch</div>
+    <div class="card-meta">Best for: outbound passive candidate outreach</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You're reaching out cold to a passive candidate and want a message that gets a reply.</div>
+    <div class="prompt-box" id="p5">Act as an experienced recruiter at a top-tier data and AI consulting firm.
+
+Write a first-touch LinkedIn InMail to a passive candidate for a <span class="fill">[JOB TITLE]</span> role.
+
+Candidate background (from their profile):
+- Current role: <span class="fill">[CURRENT TITLE & COMPANY]</span>
+- Key experience: <span class="fill">[1-2 RELEVANT THINGS FROM THEIR PROFILE]</span>
+
+About the role:
+- <span class="fill">[1-2 COMPELLING THINGS ABOUT THE ROLE OR COMPANY]</span>
+
+Constraints:
+- Under 100 words
+- Conversational, not salesy
+- End with a low-friction question (not "are you open to new opportunities?")
+- Do not mention compensation</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Messaging</span>
+    <button class="copy-btn" onclick="copyPrompt('p5',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 6. Follow-Up Message -->
+<div class="prompt-card" data-cat="messaging">
+  <div class="card-header">
+    <div class="card-cat cat-messaging">Messaging</div>
+    <div class="card-title">Candidate Follow-Up Message</div>
+    <div class="card-meta">Best for: after interview, no response, offer stage</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need to follow up with a candidate at any stage and want it to feel human, not templated.</div>
+    <div class="prompt-box" id="p6">Act as a thoughtful, candidate-focused recruiter.
+
+Write a follow-up message to a candidate after <span class="fill">[STAGE: e.g., recruiter screen / final interview / offer sent]</span>.
+
+Context:
+- Candidate name: <span class="fill">[FIRST NAME ONLY — remove before sending to AI]</span>
+- What happened: <span class="fill">[BRIEF DESCRIPTION OF LAST INTERACTION]</span>
+- Next step: <span class="fill">[WHAT YOU NEED FROM THEM OR WHAT'S HAPPENING NEXT]</span>
+
+Tone: warm, direct, respectful of their time
+Length: 3–5 sentences max
+Format: ready to send via email or LinkedIn</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Messaging</span>
+    <button class="copy-btn" onclick="copyPrompt('p6',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 7. Recruiter Screen Summarizer -->
+<div class="prompt-card" data-cat="summarizing">
+  <div class="card-header">
+    <div class="card-cat cat-summarizing">Summarizing</div>
+    <div class="card-title">Recruiter Screen Summary</div>
+    <div class="card-meta">Best for: HM-ready candidate summaries</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">Right after a recruiter screen. Paste your raw notes and get a clean, structured summary for the hiring manager.</div>
+    <div class="prompt-box" id="p7">Act as a senior recruiter summarizing a candidate screen for a hiring manager.
+
+Role: <span class="fill">[JOB TITLE]</span>
+
+Here are my raw notes from the screen:
+<span class="fill">[PASTE YOUR NOTES — no candidate full name or personal data]</span>
+
+Produce a structured summary with these four sections:
+1. Snapshot (2–3 sentences: who they are, overall impression)
+2. Preferences (what they're looking for, motivations, flexibility)
+3. Highlights (top 3 strengths relevant to this role)
+4. Flags (anything to probe deeper or that's a concern)
+
+Keep it concise. Write it for a hiring manager who has 60 seconds to read it.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Summarizing</span>
+    <button class="copy-btn" onclick="copyPrompt('p7',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 8. Intake Notes Summarizer -->
+<div class="prompt-card" data-cat="summarizing">
+  <div class="card-header">
+    <div class="card-cat cat-summarizing">Summarizing</div>
+    <div class="card-title">Intake Meeting Summary</div>
+    <div class="card-meta">Best for: post-intake recap to HM or TA ops</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">After an intake call — turn messy notes into a clean, shareable summary that aligns everyone on the req.</div>
+    <div class="prompt-box" id="p8">Act as a recruiting coordinator summarizing an intake meeting.
+
+Role: <span class="fill">[JOB TITLE]</span>
+Hiring Manager: <span class="fill">[HM FIRST NAME / TEAM]</span>
+
+Here are my intake notes:
+<span class="fill">[PASTE NOTES]</span>
+
+Summarize into:
+- Role overview (1–2 sentences)
+- Must-have requirements (bullet list)
+- Nice-to-have requirements (bullet list)
+- Red flags / dealbreakers
+- Interview process agreed on
+- Any open questions to follow up on
+
+Keep it scannable. Write it so a recruiter who wasn't on the call can run with it.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Summarizing</span>
+    <button class="copy-btn" onclick="copyPrompt('p8',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 9. Screening Questions -->
+<div class="prompt-card" data-cat="screening">
+  <div class="card-header">
+    <div class="card-cat cat-screening">Screening</div>
+    <div class="card-title">Custom Screening Questions</div>
+    <div class="card-meta">Best for: application screeners, phone screens</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need a set of screening questions that will quickly surface whether a candidate is worth advancing.</div>
+    <div class="prompt-box" id="p9">Act as a senior technical recruiter at a data and AI consulting firm.
+
+Generate 5 screening questions for a <span class="fill">[JOB TITLE]</span> role.
+
+Requirements to screen for:
+- <span class="fill">[REQUIREMENT 1]</span>
+- <span class="fill">[REQUIREMENT 2]</span>
+- <span class="fill">[REQUIREMENT 3]</span>
+
+For each question, include:
+- The question itself
+- What a strong answer looks like (1 sentence)
+- What's a red flag answer (1 sentence)
+
+Keep questions open-ended. Avoid yes/no questions. Focus on real experience, not hypotheticals.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Screening</span>
+    <button class="copy-btn" onclick="copyPrompt('p9',this)">Copy Prompt</button>
+  </div>
+</div>
+
+<!-- 10. Rejection Email -->
+<div class="prompt-card" data-cat="misc">
+  <div class="card-header">
+    <div class="card-cat cat-misc">Misc</div>
+    <div class="card-title">Candidate Rejection Email</div>
+    <div class="card-meta">Best for: post-screen, post-interview declines</div>
+  </div>
+  <div class="card-body">
+    <div class="when-label">When to use</div>
+    <div class="when-text">You need to decline a candidate respectfully — at any stage — without it sounding like a form letter.</div>
+    <div class="prompt-box" id="p10">Act as a recruiter who cares about candidate experience.
+
+Write a rejection email for a candidate who reached <span class="fill">[STAGE: e.g., recruiter screen / final interview]</span> for a <span class="fill">[JOB TITLE]</span> role.
+
+Reason for decline (internal only — don't state this directly): <span class="fill">[REASON]</span>
+
+Tone: warm, honest, respectful — not corporate
+Length: 4–6 sentences
+Do: thank them genuinely, leave the door open if appropriate
+Do not: use phrases like "we've decided to move forward with other candidates" or "we'll keep your resume on file"
+
+No candidate name needed — I'll personalize before sending.</div>
+  </div>
+  <div class="card-footer">
+    <span class="pill">Misc</span>
+    <button class="copy-btn" onclick="copyPrompt('p10',this)">Copy Prompt</button>
+  </div>
+</div>
+
+</div><!-- /grid -->
+
+<div class="page-footer">
+  phData Talent Acquisition · AI Prompt Library · Q1 2026 · Built with Glean + Claude<br>
+  <span style="color:#1ABC9C;font-weight:600;">Questions? Add a prompt?</span> Reach out to Ernie Campos
+</div>
+
+</div><!-- /container -->
+
+<script>
+function filter(cat){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.prompt-card').forEach(c=>{
+    c.classList.toggle('hidden', cat!=='all' && c.dataset.cat!==cat);
+  });
+}
+
+function copyPrompt(id, btn){
+  const el=document.getElementById(id);
+  // Get text only, strip HTML tags
+  const text=el.innerText||el.textContent;
+  navigator.clipboard.writeText(text.trim()).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy Prompt';btn.classList.remove('copied');},2000);
+  });
+}
+</script>
+</body>
+</html>
