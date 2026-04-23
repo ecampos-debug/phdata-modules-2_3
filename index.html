@@ -3,456 +3,1553 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>phData TA — AI Prompt Library</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>AI × TA Learning Academy – Modules 2 & 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0a183c;--green:#1ABC9C;--blue:#264369;--lgray:#eaecf0;--mgray:#93a1b5;--dgray:#333332;--white:#ffffff;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:#f0f2f5;color:var(--dgray);font-size:13px;}
+  :root {
+    --navy: #0a183c;
+    --phblue: #264369;
+    --green: #1ABC9C;
+    --green-light: #9fdecd;
+    --green-xlight: #ecf8f5;
+    --med-gray: #93a1b5;
+    --light-gray: #eaecf0;
+    --dark-gray: #333332;
+    --white: #ffffff;
+    --aqua: #A5FECB;
+  }
 
-/* HEADER */
-header{background:var(--navy);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;}
-header h1{color:#fff;font-size:17px;font-weight:700;}
-header p{color:var(--mgray);font-size:11px;margin-top:2px;}
-.header-badge{background:var(--green);color:var(--navy);font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* LAYOUT */
-.container{max-width:1100px;margin:0 auto;padding:28px 24px 60px;}
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    min-height: 100vh;
+  }
 
-/* RECIPE BANNER */
-.recipe{background:var(--navy);border-radius:10px;padding:22px 28px;margin-bottom:28px;}
-.recipe h2{color:#fff;font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.recipe h2 span{color:var(--green);}
-.recipe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-.recipe-step{background:rgba(255,255,255,.06);border:1px solid rgba(26,188,156,.3);border-radius:6px;padding:10px 12px;}
-.step-num{font-size:18px;font-weight:700;color:var(--green);line-height:1;}
-.step-title{font-size:10px;font-weight:600;color:#fff;margin:3px 0;}
-.step-body{font-size:9.5px;color:var(--mgray);line-height:1.45;}
+  /* ── TOP NAV ── */
+  .top-nav {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--green);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .nav-label {
+    color: var(--med-gray);
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .nav-badge {
+    background: var(--green);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
 
-/* TIPS BAR */
-.tips{background:var(--lgray);border-left:4px solid var(--green);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:28px;}
-.tips h3{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;}
-.tips-row{display:flex;flex-wrap:wrap;gap:8px;}
-.tip{background:#fff;border:1px solid #dde2ea;border-radius:20px;padding:4px 12px;font-size:11px;color:var(--blue);}
-.tip span{color:var(--green);font-weight:700;margin-right:3px;}
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 64px);
+  }
 
-/* TABS */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
-.tab{font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;padding:6px 14px;border:1.5px solid var(--blue);border-radius:20px;background:transparent;color:var(--blue);cursor:pointer;transition:.2s;}
-.tab:hover,.tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-.tab.all.active{background:var(--navy);border-color:var(--navy);}
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--phblue);
+    padding: 28px 0;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+  .sidebar-module {
+    margin-bottom: 8px;
+  }
+  .sidebar-module-header {
+    padding: 10px 24px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-top: 8px;
+  }
+  .sidebar-link {
+    display: block;
+    padding: 9px 24px 9px 32px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+    transition: all 0.18s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+  .sidebar-link:hover {
+    background: rgba(255,255,255,0.07);
+    color: var(--white);
+  }
+  .sidebar-link.active {
+    background: rgba(26,188,156,0.12);
+    color: var(--white);
+    border-left-color: var(--green);
+    font-weight: 600;
+  }
+  .sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 16px 24px;
+  }
 
-/* PROMPT CARDS */
-.prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
-.prompt-card{background:#fff;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.07);overflow:hidden;display:flex;flex-direction:column;}
-.card-header{padding:14px 16px 10px;border-bottom:1px solid var(--lgray);}
-.card-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
-.cat-sourcing{color:#1b7a63;} .cat-jd{color:var(--blue);} .cat-messaging{color:#7b5ea7;}
-.cat-summarizing{color:#c47d0e;} .cat-screening{color:#c0392b;} .cat-misc{color:var(--mgray);}
-.card-title{font-size:13px;font-weight:700;color:var(--navy);}
-.card-meta{font-size:10px;color:var(--mgray);margin-top:3px;}
-.card-body{padding:12px 16px;flex:1;}
-.when-label{font-size:9.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
-.when-text{font-size:11px;color:var(--dgray);line-height:1.5;margin-bottom:10px;}
-.prompt-box{background:#f8f9fb;border:1px solid var(--lgray);border-radius:5px;padding:10px 12px;font-size:11px;line-height:1.7;color:var(--dgray);white-space:pre-wrap;font-family:'Poppins',sans-serif;max-height:180px;overflow-y:auto;}
-.prompt-box .fill{color:var(--green);font-weight:600;}
-.card-footer{padding:10px 16px;border-top:1px solid var(--lgray);display:flex;justify-content:space-between;align-items:center;}
-.copy-btn{font-family:'Poppins',sans-serif;background:var(--navy);color:#fff;border:none;border-radius:5px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;transition:.2s;}
-.copy-btn:hover{background:var(--green);color:var(--navy);}
-.copy-btn.copied{background:var(--green);color:var(--navy);}
-.pill{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--lgray);color:var(--blue);}
+  /* ── MAIN CONTENT ── */
+  .main {
+    padding: 48px 56px;
+    max-width: 900px;
+  }
 
-/* HIDDEN */
-.hidden{display:none;}
+  /* ── SECTION ── */
+  .section { display: none; }
+  .section.visible { display: block; }
 
-/* FOOTER */
-.page-footer{text-align:center;margin-top:40px;font-size:10px;color:var(--mgray);}
+  /* ── MODULE HERO ── */
+  .module-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--phblue) 100%);
+    border-radius: 16px;
+    padding: 48px 48px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(26,188,156,0.08);
+  }
+  .module-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 40%;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(165,254,203,0.05);
+  }
+  .module-tag {
+    display: inline-block;
+    background: var(--green);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .module-hero h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .module-hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .module-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .meta-icon {
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  /* ── LESSON CARD ── */
+  .lesson {
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(10,24,60,0.07);
+    overflow: hidden;
+  }
+  .lesson-header {
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .lesson-num {
+    width: 28px; height: 28px;
+    background: var(--green);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lesson-title {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .lesson-toggle {
+    color: var(--green);
+    font-size: 18px;
+    transition: transform 0.25s;
+  }
+  .lesson-toggle.open { transform: rotate(180deg); }
+  .lesson-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .lesson-body.open {
+    max-height: 3000px;
+    padding: 28px 28px;
+  }
+
+  /* ── SCREEN ── */
+  .screen {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .screen:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .screen-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .screen h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .screen p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--dark-gray);
+    margin-bottom: 12px;
+  }
+  .screen ul, .screen ol {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--dark-gray);
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  .screen li { margin-bottom: 4px; }
+  .screen li strong { color: var(--navy); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--green-xlight);
+    border-left: 4px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--phblue);
+    margin: 14px 0;
+  }
+  .callout strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── RECIPE CARD ── */
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .recipe-item {
+    background: var(--light-gray);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-top: 3px solid var(--green);
+  }
+  .recipe-item .part-num {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .recipe-item .part-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .recipe-item .part-example {
+    font-size: 12px;
+    color: var(--med-gray);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── PROMPT BLOCK ── */
+  .prompt-block {
+    background: #f7f9fc;
+    border: 1px solid #d0d9e8;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .prompt-block .prompt-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .prompt-block .prompt-row:last-child { margin-bottom: 0; }
+  .prompt-label {
+    font-weight: 700;
+    color: var(--navy);
+    min-width: 90px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-top: 1px;
+  }
+  .prompt-text {
+    color: var(--dark-gray);
+    flex: 1;
+  }
+
+  /* ── TOOL TABLE ── */
+  .tool-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(10,24,60,0.08);
+  }
+  .tool-table thead th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .tool-table tbody tr:nth-child(even) { background: #f5f7fb; }
+  .tool-table tbody tr:nth-child(odd) { background: var(--white); }
+  .tool-table td {
+    padding: 12px 16px;
+    color: var(--dark-gray);
+    vertical-align: top;
+    line-height: 1.55;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .tool-table td:first-child {
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .tool-chip {
+    display: inline-block;
+    background: var(--green-xlight);
+    color: var(--phblue);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* ── ACTIVITY ── */
+  .activity-card {
+    background: linear-gradient(135deg, var(--phblue), var(--navy));
+    border-radius: 12px;
+    padding: 32px 32px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .activity-tag {
+    display: inline-block;
+    background: var(--green);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .activity-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .activity-steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: step-counter;
+  }
+  .activity-steps li {
+    counter-increment: step-counter;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.9);
+  }
+  .activity-steps li::before {
+    content: counter(step-counter);
+    width: 24px;
+    height: 24px;
+    background: var(--green);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(10,24,60,0.07);
+    border-left: 4px solid var(--green);
+  }
+  .quiz-q-num {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .quiz-q {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.45;
+  }
+  .quiz-options {
+    list-style: none;
+    padding: 0;
+  }
+  .quiz-options li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--dark-gray);
+    margin-bottom: 6px;
+    border: 1.5px solid var(--light-gray);
+    cursor: pointer;
+    transition: all 0.18s;
+    line-height: 1.5;
+  }
+  .quiz-options li:hover { border-color: var(--med-gray); background: #f8f9fb; }
+  .quiz-options li.correct { border-color: var(--green); background: var(--green-xlight); color: var(--navy); font-weight: 500; }
+  .quiz-options li.incorrect { border-color: #e74c3c; background: #fff5f5; color: #c0392b; }
+  .quiz-options li.revealed-correct { border-color: var(--green); background: var(--green-xlight); }
+  .opt-radio {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--med-gray);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.18s;
+  }
+  .quiz-options li.correct .opt-radio { border-color: var(--green); background: var(--green); }
+  .quiz-options li.incorrect .opt-radio { border-color: #e74c3c; background: #e74c3c; }
+  .quiz-true-false {
+    display: flex;
+    gap: 12px;
+  }
+  .tf-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--light-gray);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    background: var(--white);
+    transition: all 0.18s;
+  }
+  .tf-btn:hover { border-color: var(--med-gray); background: #f8f9fb; }
+  .tf-btn.correct { border-color: var(--green); background: var(--green-xlight); color: var(--navy); }
+  .tf-btn.incorrect { border-color: #e74c3c; background: #fff5f5; color: #c0392b; }
+  .quiz-answer-reveal {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--green-xlight);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--phblue);
+    display: none;
+  }
+  .quiz-answer-reveal.show { display: block; }
+  .short-answer textarea {
+    width: 100%;
+    border: 1.5px solid var(--light-gray);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-gray);
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.18s;
+    outline: none;
+  }
+  .short-answer textarea:focus { border-color: var(--green); }
+  .quiz-submit-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--green);
+    color: var(--navy);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .quiz-submit-btn:hover { background: #16a085; color: var(--white); }
+
+  /* ── SCENARIO TABLE ── */
+  .scenario-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+    box-shadow: 0 1px 6px rgba(10,24,60,0.07);
+  }
+  .scenario-table thead th {
+    background: var(--phblue);
+    color: var(--white);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .scenario-table tbody td {
+    padding: 12px 16px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--light-gray);
+    line-height: 1.55;
+  }
+  .scenario-table tbody tr:nth-child(even) td { background: #f5f7fb; }
+  .scenario-table tbody tr:nth-child(odd) td { background: var(--white); }
+  .scenario-table td:first-child { font-weight: 500; color: var(--phblue); white-space: nowrap; }
+  .scenario-answer {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── ADMIN NOTES ── */
+  .admin-box {
+    background: #f0f4f8;
+    border: 1px dashed var(--med-gray);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .admin-box h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--med-gray);
+    margin-bottom: 12px;
+  }
+  .admin-box ul {
+    font-size: 13px;
+    padding-left: 18px;
+    color: var(--dark-gray);
+    line-height: 1.75;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    height: 4px;
+    margin: 8px 24px 16px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 4px;
+    transition: width 0.4s;
+  }
+
+  /* ── MODULE TABS ── */
+  .module-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(10,24,60,0.12);
+  }
+  .module-tab {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--white);
+    color: var(--phblue);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .module-tab:hover { background: var(--light-gray); }
+  .module-tab.active {
+    background: var(--navy);
+    color: var(--white);
+    border-bottom-color: var(--green);
+  }
+  .module-tab .tab-sub {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.7;
+    display: block;
+  }
+
+  /* ── OBJECTIVES LIST ── */
+  .objectives {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .objectives li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    margin-bottom: 10px;
+  }
+  .objectives li::before {
+    content: '✓';
+    color: var(--white);
+    background: var(--green);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── MISTAKE TABLE ── */
+  .mistake-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(10,24,60,0.07);
+  }
+  .mistake-table thead th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 11px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .mistake-table tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--light-gray);
+    line-height: 1.55;
+    vertical-align: top;
+  }
+  .mistake-table tbody tr:nth-child(even) td { background: #f5f7fb; }
+  .mistake-table tbody tr:nth-child(odd) td { background: var(--white); }
+  .mistake-table td:first-child { color: #c0392b; font-weight: 500; }
+  .mistake-table td:last-child { color: var(--phblue); font-weight: 500; }
+
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 28px 20px; }
+    .recipe-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div>
-    <h1>⬡ phData TA — AI Prompt Library</h1>
-    <p>Copy, paste, customize. Always review before sending.</p>
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="logo">
+    <div class="logo-icon">ph</div>
+    <div>
+      <div>phData</div>
+      <div class="nav-label">AI × TA Learning Academy</div>
+    </div>
   </div>
-  <div class="header-badge">Q1 2026</div>
-</header>
+  <span class="nav-badge">Explore → Experiment → Embed</span>
+</nav>
 
-<div class="container">
+<div class="layout">
 
-<!-- 5-PART RECIPE -->
-<div class="recipe">
-  <h2>⚡ The <span>5-Part Prompt Recipe</span> — use this every time</h2>
-  <div class="recipe-grid">
-    <div class="recipe-step"><div class="step-num">1</div><div class="step-title">Role</div><div class="step-body">Tell AI who to act as<br><em>"Act as an experienced recruiter…"</em></div></div>
-    <div class="recipe-step"><div class="step-num">2</div><div class="step-title">Task</div><div class="step-body">Tell AI exactly what you want<br><em>"Draft a LinkedIn InMail…"</em></div></div>
-    <div class="recipe-step"><div class="step-num">3</div><div class="step-title">Context</div><div class="step-body">Give relevant background<br><em>"The role is Sr. DE, hybrid, Minneapolis…"</em></div></div>
-    <div class="recipe-step"><div class="step-num">4</div><div class="step-title">Constraints</div><div class="step-body">Set limits & guardrails<br><em>"Under 150 words, no jargon…"</em></div></div>
-    <div class="recipe-step"><div class="step-num">5</div><div class="step-title">Output</div><div class="step-body">Specify the format<br><em>"Write as a short paragraph, ready to send…"</em></div></div>
-  </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <!-- MOD 2 -->
+    <div class="sidebar-module">
+      <div class="sidebar-module-header">Module 2 · Prompting 101</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%" id="m2-progress"></div></div>
+      <span class="sidebar-link" onclick="showSection('m2-welcome')">L1 – Welcome & Why Prompts Matter</span>
+      <span class="sidebar-link" onclick="showSection('m2-recipe')">L2 – The 5-Part Prompt Recipe</span>
+      <span class="sidebar-link" onclick="showSection('m2-examples')">L3 – Prompt Examples</span>
+      <span class="sidebar-link" onclick="showSection('m2-mistakes')">L4 – Common Mistakes & Tool Guide</span>
+      <span class="sidebar-link" onclick="showSection('m2-activity')">L5 – Activity: Build Your Prompt</span>
+      <span class="sidebar-link" onclick="showSection('m2-quiz')">L6 – Knowledge Check</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- MOD 3 -->
+    <div class="sidebar-module">
+      <div class="sidebar-module-header">Module 3 · Tools Landscape</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%" id="m3-progress"></div></div>
+      <span class="sidebar-link" onclick="showSection('m3-welcome')">L1 – Welcome & Why Tools Matter</span>
+      <span class="sidebar-link" onclick="showSection('m3-toolmap')">L2 – TA AI Tool Map</span>
+      <span class="sidebar-link" onclick="showSection('m3-glean')">L3 – Deep Dive: Glean & BrightHire</span>
+      <span class="sidebar-link" onclick="showSection('m3-chatgpt')">L4 – Deep Dive: ChatGPT, Claude, Gemini, Copilot</span>
+      <span class="sidebar-link" onclick="showSection('m3-activity')">L5 – Activity: Pick the Right Tool</span>
+      <span class="sidebar-link" onclick="showSection('m3-quiz')">L6 – Knowledge Check</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ================================================================ -->
+    <!-- MODULE 2 SECTIONS -->
+    <!-- ================================================================ -->
+
+    <!-- M2: WELCOME -->
+    <div id="m2-welcome" class="section visible">
+      <div class="module-hero">
+        <span class="module-tag">Module 2 · Week 2 · Experiment</span>
+        <h1>Prompting 101 &<br>Prompt Recipes for Recruiters</h1>
+        <p>Learn a simple 5-part recipe for writing prompts that actually work for recruiting tasks — and contribute your best work to the TA Prompt Library.</p>
+        <div class="module-meta">
+          <div class="meta-item"><div class="meta-icon">⏱</div> 45–60 min</div>
+          <div class="meta-item"><div class="meta-icon">👤</div> Self-paced</div>
+          <div class="meta-item"><div class="meta-icon">📋</div> 1 Activity + Quiz</div>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">1</div>
+          <div class="lesson-title">Welcome & Why Prompts Matter</div>
+          <div class="lesson-toggle">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 1 · Welcome</div>
+            <h3>Welcome to Prompting 101</h3>
+            <p>Welcome to Module 2: Prompting 101 & Prompt Recipes for Recruiters.</p>
+            <p>In this module, you'll learn a simple 5-part recipe for writing prompts that actually work for recruiting tasks. Instead of typing "help me with this candidate" and hoping for the best, you'll give AI clear instructions so it behaves like a helpful recruiting partner — not a random content machine.</p>
+            <p><strong>By the end of this module, you'll be able to:</strong></p>
+            <ul class="objectives">
+              <li>Use a 5-part prompt recipe for common talent acquisition tasks.</li>
+              <li>Adapt that recipe for outreach, summaries, and Boolean searches.</li>
+              <li>Contribute 2–3 prompts to the TA Prompt Library.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m2-recipe')">Next: The 5-Part Recipe →</button>
+      </div>
+    </div>
+
+    <!-- M2: RECIPE -->
+    <div id="m2-recipe" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">2</div>
+          <div class="lesson-title">The 5-Part Prompt Recipe</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 2 · Concept</div>
+            <h3>Think of AI as a New Recruiter</h3>
+            <p>If you say to a new recruiter, <em>"Can you help with this candidate?"</em> — you'll get something generic. The quality of the output depends on how clear your instructions are.</p>
+            <p>AI works the same way: <strong>better prompts = better results.</strong></p>
+            <p>We use a simple 5-part recipe for every prompt:</p>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 3 · The Recipe</div>
+            <h3>The 5 Parts of a Strong Prompt</h3>
+            <div class="recipe-grid">
+              <div class="recipe-item">
+                <div class="part-num">Part 1</div>
+                <div class="part-name">🎭 Role</div>
+                <div class="part-example">"Act as an experienced technical recruiter at a data & AI consulting firm."</div>
+              </div>
+              <div class="recipe-item">
+                <div class="part-num">Part 2</div>
+                <div class="part-name">📋 Task</div>
+                <div class="part-example">"Write a first-touch LinkedIn InMail to a passive candidate."</div>
+              </div>
+              <div class="recipe-item">
+                <div class="part-num">Part 3</div>
+                <div class="part-name">📌 Context</div>
+                <div class="part-example">"Senior Data Engineer role, remote, Snowflake + dbt, hiring manager skims."</div>
+              </div>
+              <div class="recipe-item">
+                <div class="part-num">Part 4</div>
+                <div class="part-name">🚧 Constraints</div>
+                <div class="part-example">"Under 120 words. Conversational, not salesy. Keep it job-related."</div>
+              </div>
+            </div>
+            <div class="recipe-item" style="margin-top:0; border-top:3px solid var(--green);">
+              <div class="part-num">Part 5</div>
+              <div class="part-name">📄 Output</div>
+              <div class="part-example">"3 short paragraphs: hook, value, soft CTA." or "4 labeled sections: Snapshot, Preferences, Highlights, Flags."</div>
+            </div>
+            <div class="callout">
+              <strong>Task vs. Output — don't overthink it</strong>
+              These two will sometimes feel similar, and that's okay. Task tells AI <em>what to do</em>; Output tells it <em>what to hand back</em>. When in doubt, make sure your Output instruction specifies format, length, and structure — that's the part most people skip.
+            </div>
+            <div class="callout">
+              <strong>Guardrail Reminder</strong>
+              Even with a great prompt: avoid PII in unapproved tools · keep prompts job-related and neutral · review every output before sharing.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m2-examples')">Next: Prompt Examples →</button>
+      </div>
+    </div>
+
+    <!-- M2: EXAMPLES -->
+    <div id="m2-examples" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">3</div>
+          <div class="lesson-title">Prompt Examples</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 4 · Example 1</div>
+            <h3>Example – Outreach Prompt</h3>
+            <p>Here's a full 5-part prompt for a first-touch LinkedIn outreach:</p>
+            <div class="prompt-block">
+              <div class="prompt-row"><span class="prompt-label">Role</span><span class="prompt-text">Act as an experienced recruiter at a top-tier data & AI consulting firm.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Task</span><span class="prompt-text">Write a first-touch LinkedIn InMail to a passive candidate for a Senior Data Engineer role.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Context</span><span class="prompt-text">Candidate: currently a Data Engineer at a mid-size fintech. Experience with Snowflake and dbt. Role: fully remote, focused on building data pipelines for enterprise clients.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Constraints</span><span class="prompt-text">Under 100 words. Conversational, not salesy. End with a low-friction question. Don't mention compensation or relocation.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Output</span><span class="prompt-text">Write as a short message, ready to send in LinkedIn — no placeholders.</span></div>
+            </div>
+            <div class="callout">
+              <strong>Focus on the structure, not memorization</strong>
+              The exact wording will vary by role and candidate. What stays constant is the 5-part structure.
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 5 · Example 2</div>
+            <h3>Example – Recruiter Screen Summary Prompt</h3>
+            <p>Here's a prompt to turn messy screen notes into a hiring-manager-ready summary:</p>
+            <div class="prompt-block">
+              <div class="prompt-row"><span class="prompt-label">Role</span><span class="prompt-text">Act as a recruiter summarizing a candidate screen for a busy hiring manager.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Task</span><span class="prompt-text">Turn my raw notes into a structured hiring manager summary.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Context</span><span class="prompt-text">Role: Senior Data Engineer. Candidate is currently at [Company]. Key skills: [skills]. I'll paste my notes below.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Constraints</span><span class="prompt-text">Keep it neutral and job-related. No assumptions about personality or motivation. Under 250 words.</span></div>
+              <div class="prompt-row"><span class="prompt-label">Output</span><span class="prompt-text">Produce 4 labeled sections: 1) Snapshot (2–3 sentences) 2) Preferences 3) Highlights (top 3 strengths) 4) Flags.</span></div>
+            </div>
+            <div class="callout">
+              <strong>Connection to TA Agents</strong>
+              This pattern is similar to how our Recruiter Screen Summarizer agent works. Better prompts → better agent behavior.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m2-mistakes')">Next: Common Mistakes →</button>
+      </div>
+    </div>
+
+    <!-- M2: MISTAKES -->
+    <div id="m2-mistakes" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">4</div>
+          <div class="lesson-title">Common Mistakes & Quick Tool Guide</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 6 · Mistakes</div>
+            <h3>Common Prompting Mistakes (and Quick Fixes)</h3>
+            <table class="mistake-table">
+              <thead><tr><th>❌ Mistake</th><th>✅ Fix</th></tr></thead>
+              <tbody>
+                <tr><td>"Help me with this candidate."</td><td>Add role + task: "Act as a recruiter. Summarize this screen into 4 sections for a hiring manager."</td></tr>
+                <tr><td>No context about the role or level.</td><td>Add 1–2 lines: role name, key requirements, level.</td></tr>
+                <tr><td>No constraints on length or tone.</td><td>Add: "Under 150 words, warm and direct, no jargon."</td></tr>
+                <tr><td>Skipping human review before pasting into Greenhouse.</td><td>3-step habit: Read fully → Check facts against notes/JD → Adjust tone → Paste.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 7 · Tool Guide</div>
+            <h3>Quick Tool Guide for Prompts</h3>
+            <table class="tool-table">
+              <thead><tr><th>Use This Tool</th><th>When</th><th>TA Tasks</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Glean</td>
+                  <td>Working with real candidate data or internal docs</td>
+                  <td><span class="tool-chip">Recruiter summaries</span><span class="tool-chip">JD cleanup</span><span class="tool-chip">Boolean</span><span class="tool-chip">Resume screeners</span><span class="tool-chip">TA agents</span></td>
+                </tr>
+                <tr>
+                  <td>ChatGPT / Claude<br><small>(company accounts only)</small></td>
+                  <td>Anonymized or generic content — no names or contact info</td>
+                  <td><span class="tool-chip">Idea generation</span><span class="tool-chip">Rough JD drafts</span><span class="tool-chip">Outreach templates</span><span class="tool-chip">Interview Qs</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout">
+              <strong>When in doubt</strong>
+              Default to Glean for anything candidate-related. We cover approved tools fully in Module 3.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m2-activity')">Next: Activity →</button>
+      </div>
+    </div>
+
+    <!-- M2: ACTIVITY -->
+    <div id="m2-activity" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">5</div>
+          <div class="lesson-title">Activity – Build Your Own Prompt</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 8 · Practical Activity</div>
+            <div class="activity-card">
+              <span class="activity-tag">WorkRamp Task</span>
+              <h3>Build One 5-Part Prompt for Your Own Work</h3>
+              <ol class="activity-steps">
+                <li>Pick one real task you'll do this week — outreach to a candidate, a screen summary, JD cleanup, or a Boolean search string.</li>
+                <li>Write your prompt using the 5-part recipe: Role / Task / Context / Constraints / Output.</li>
+                <li>Paste your full prompt into the response field below.</li>
+                <li>(Optional but recommended) Run your prompt in an approved tool and paste the AI's output below it.</li>
+                <li>Answer in 1–2 sentences: What worked well? What would you change next time?</li>
+              </ol>
+            </div>
+            <div class="short-answer">
+              <p style="font-size:13px; font-weight:600; color:var(--navy); margin-bottom:8px;">Your 5-Part Prompt</p>
+              <textarea placeholder="Role:&#10;Task:&#10;Context:&#10;Constraints:&#10;Output:"></textarea>
+            </div>
+            <div class="short-answer" style="margin-top:14px;">
+              <p style="font-size:13px; font-weight:600; color:var(--navy); margin-bottom:8px;">(Optional) AI Output + Reflection</p>
+              <textarea placeholder="Paste the AI's output here, then write 1–2 sentences on what worked and what you'd change."></textarea>
+            </div>
+            <div class="admin-box" style="margin-top:20px;">
+              <h4>Admin Note</h4>
+              <ul>
+                <li>Responses can be reviewed to seed or update the TA Prompt Library on GitHub Pages.</li>
+                <li>WorkRamp object type: <strong>Task</strong> (free-response submission).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m2-quiz')">Next: Knowledge Check →</button>
+      </div>
+    </div>
+
+    <!-- M2: QUIZ -->
+    <div id="m2-quiz" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">6</div>
+          <div class="lesson-title">Knowledge Check – Module 2</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+
+          <!-- Q1 -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 1 · Multiple Choice</div>
+            <div class="quiz-q">Which part of the 5-part recipe tells AI how long the output should be and what to avoid?</div>
+            <ul class="quiz-options" id="q2-1">
+              <li onclick="selectOption(this,'wrong','q2-1','q2-1-reveal')"><div class="opt-radio"></div> Role</li>
+              <li onclick="selectOption(this,'wrong','q2-1','q2-1-reveal')"><div class="opt-radio"></div> Task</li>
+              <li onclick="selectOption(this,'wrong','q2-1','q2-1-reveal')"><div class="opt-radio"></div> Context</li>
+              <li onclick="selectOption(this,'right','q2-1','q2-1-reveal')"><div class="opt-radio"></div> Constraints ✓</li>
+            </ul>
+            <div class="quiz-answer-reveal" id="q2-1-reveal">✅ <strong>Constraints</strong> — this is where you set limits on length, tone, what to avoid, and any guardrails.</div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 2 · Multiple Choice (Scenario)</div>
+            <div class="quiz-q">You want AI to summarize a recruiter screen into four labeled sections for a hiring manager. What is the best Output instruction?</div>
+            <ul class="quiz-options" id="q2-2">
+              <li onclick="selectOption(this,'wrong','q2-2','q2-2-reveal')"><div class="opt-radio"></div> "Give me a summary."</li>
+              <li onclick="selectOption(this,'wrong','q2-2','q2-2-reveal')"><div class="opt-radio"></div> "Write 3 paragraphs I can send to the hiring manager."</li>
+              <li onclick="selectOption(this,'right','q2-2','q2-2-reveal')"><div class="opt-radio"></div> "Produce 4 labeled sections: Snapshot, Preferences, Highlights (top 3 strengths), Flags." ✓</li>
+              <li onclick="selectOption(this,'wrong','q2-2','q2-2-reveal')"><div class="opt-radio"></div> "Keep it short and friendly."</li>
+            </ul>
+            <div class="quiz-answer-reveal" id="q2-2-reveal">✅ Specific output instructions produce structured, predictable results. Vague instructions produce vague outputs.</div>
+          </div>
+
+          <!-- Q3 True/False -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 3 · True / False</div>
+            <div class="quiz-q">If your prompt is detailed enough, you can skip reviewing the AI's output before pasting it into Greenhouse.</div>
+            <div class="quiz-true-false">
+              <div class="tf-btn" onclick="selectTF(this, false, 'q2-3-reveal')">True</div>
+              <div class="tf-btn" onclick="selectTF(this, true, 'q2-3-reveal')">False ✓</div>
+            </div>
+            <div class="quiz-answer-reveal" id="q2-3-reveal">✅ <strong>False.</strong> Always review AI output before sharing or logging it. AI can miss nuance, get facts wrong, or adopt the wrong tone — your judgment is the final step.</div>
+          </div>
+
+          <!-- Q4 Short Answer -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 4 · Short Answer (Reflection)</div>
+            <div class="quiz-q">Name one change you'll make in how you write prompts after this module.</div>
+            <div class="short-answer">
+              <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+          </div>
+
+          <div class="admin-box" style="margin-top:8px;">
+            <h4>Admin Notes – Module 2</h4>
+            <ul>
+              <li>WorkRamp object types: Lessons 1–4 → <strong>Content</strong> blocks · Lesson 5 → <strong>Task</strong> · Lesson 6 → <strong>Quiz</strong></li>
+              <li>Prerequisite: Module 1 must be completed before Module 2 unlocks.</li>
+              <li>Embed links: TA Prompt Library (GitHub Pages) · Glean TA agent page · Module 1 guardrails reference.</li>
+              <li>Activity responses can be reviewed to seed new prompts into the Prompt Library.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-welcome')">Start Module 3 →</button>
+      </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- MODULE 3 SECTIONS -->
+    <!-- ================================================================ -->
+
+    <!-- M3: WELCOME -->
+    <div id="m3-welcome" class="section">
+      <div class="module-hero">
+        <span class="module-tag">Module 3 · Week 3 · Experiment</span>
+        <h1>TA AI Tools Landscape</h1>
+        <p>Learn which AI tools are in our stack, what each one is good at, and how to pick the right one for each recruiting task — without guessing.</p>
+        <div class="module-meta">
+          <div class="meta-item"><div class="meta-icon">⏱</div> 45–60 min</div>
+          <div class="meta-item"><div class="meta-icon">👤</div> Self-paced</div>
+          <div class="meta-item"><div class="meta-icon">📋</div> 1 Activity + Quiz</div>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">1</div>
+          <div class="lesson-title">Welcome & Why Tools Matter</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 1 · Welcome</div>
+            <h3>Welcome to the TA AI Tools Landscape</h3>
+            <p>In Module 2, you learned how to write strong prompts. In this module, you'll learn <strong>where to use those prompts</strong> — which AI tools we have, what each one is good at, and how they connect to Greenhouse, BrightHire, email, Slack, and our TA workflows.</p>
+            <p><strong>By the end of this module, you'll be able to:</strong></p>
+            <ul class="objectives">
+              <li>Describe the core TA AI tools in our stack (Glean, BrightHire, ChatGPT/Claude, Gemini, Copilot).</li>
+              <li>Choose the right tool for common recruiting scenarios.</li>
+              <li>Explain, at a high level, how these tools connect to Greenhouse and email.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-toolmap')">Next: Tool Map →</button>
+      </div>
+    </div>
+
+    <!-- M3: TOOL MAP -->
+    <div id="m3-toolmap" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">2</div>
+          <div class="lesson-title">TA AI Tool Map (Overview)</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 2 · Big Picture</div>
+            <h3>The TA AI Tool Ecosystem</h3>
+            <p>Think of our AI tools as an <strong>ecosystem</strong>, not a pile of apps. Each tool has a job:</p>
+            <ul>
+              <li><strong>Glean</strong> — our enterprise AI layer that sits on top of Drive, Gmail, Slack, Confluence, and more. Powers our TA agents.</li>
+              <li><strong>BrightHire</strong> — AI-assisted interview platform for recording, transcription, and structured summaries.</li>
+              <li><strong>ChatGPT / Claude</strong> — used for specific outputs Glean can't produce: custom slide decks, complex formatting, or content built from scratch with no internal data involved. Approved company accounts only.</li>
+              <li><strong>Gemini</strong> — Google's AI built into Gmail, Docs, and Sheets.</li>
+              <li><strong>Copilot</strong> — Microsoft's AI in Outlook, Word, and Teams.</li>
+            </ul>
+            <div class="callout">
+              <strong>The expectation</strong>
+              You don't need to use all of these every day. You do need to know which tool is best for which job — and always stay inside approved, company-managed accounts when working with candidate or internal data.
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 3 · Quick Reference</div>
+            <h3>Quick Tool Map</h3>
+            <table class="tool-table">
+              <thead><tr><th>Tool</th><th>Best For</th><th>Typical TA Uses</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Glean</td>
+                  <td>Internal systems search + TA agents</td>
+                  <td><span class="tool-chip">Recruiter summaries</span><span class="tool-chip">JD cleanup</span><span class="tool-chip">Boolean</span><span class="tool-chip">Resume screeners</span><span class="tool-chip">Internal Q&A</span></td>
+                </tr>
+                <tr>
+                  <td>BrightHire</td>
+                  <td>Interview recording & AI summaries</td>
+                  <td><span class="tool-chip">Structured interview notes</span><span class="tool-chip">Intake recordings</span><span class="tool-chip">Scorecard support</span></td>
+                </tr>
+                <tr>
+                  <td>ChatGPT / Claude</td>
+                  <td>Outputs Glean can't build — formatted artifacts, decks, or content created from scratch with no internal data</td>
+                  <td><span class="tool-chip">HTML/slide artifacts</span><span class="tool-chip">Scorecard templates</span><span class="tool-chip">Prompt library entries</span><span class="tool-chip">New JD from scratch</span></td>
+                </tr>
+                <tr>
+                  <td>Gemini</td>
+                  <td>Drafting inside Gmail & Docs</td>
+                  <td><span class="tool-chip">Polish HM emails</span><span class="tool-chip">Clean up notes</span><span class="tool-chip">Summarize docs</span></td>
+                </tr>
+                <tr>
+                  <td>Copilot</td>
+                  <td>Drafting inside Outlook, Word, Teams</td>
+                  <td><span class="tool-chip">Exec-facing emails</span><span class="tool-chip">Meeting recaps</span><span class="tool-chip">M365 docs</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-glean')">Next: Deep Dive – Glean & BrightHire →</button>
+      </div>
+    </div>
+
+    <!-- M3: GLEAN -->
+    <div id="m3-glean" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">3</div>
+          <div class="lesson-title">Deep Dive – Glean & BrightHire</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 4 · Glean</div>
+            <h3>Glean – Our Enterprise AI & Agent Platform</h3>
+            <p><strong>What it is:</strong> Glean is our enterprise AI layer. It connects to approved systems (Google Drive, Gmail, Slack, Confluence, Jira, etc.) and respects permissions — you only see what you're already allowed to see.</p>
+            <p><strong>Why it matters for TA:</strong></p>
+            <ul>
+              <li>Ask questions like: "Show me recent Advisory recruiter playbooks" or "Summarize this candidate's past interviews and scorecards" (via agents).</li>
+              <li>Run TA agents built on Glean: Recruiter Screen Summarizer, Prompt Optimizer, Boolean Optimizer, JD Agent, Resume Screener, Scorecard helpers, and more.</li>
+              <li>Data access rules already set in your systems apply — if you can't see a doc in Drive, you won't see it in Glean.</li>
+            </ul>
+            <div class="callout"><strong>Key Takeaway</strong>Use Glean when you need to work with internal information or run TA-specific agents.</div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 5 · BrightHire</div>
+            <h3>BrightHire – Interview Recording & Summaries</h3>
+            <p><strong>What it is:</strong> BrightHire is our interview intelligence platform. It records authorized interviews, generates transcripts, and produces AI-generated summaries aligned to our scorecards.</p>
+            <p><strong>Why it matters for TA:</strong></p>
+            <ul>
+              <li>It's the <strong>only approved tool</strong> for recording interviews.</li>
+              <li>It gives us a reliable record of what was said — supporting quality and fairness.</li>
+              <li>AI templates can summarize interviews in sections aligned to our scorecards.</li>
+            </ul>
+            <p><strong>How it connects:</strong> BrightHire integrates with Greenhouse for scheduling and tagging. Summaries and notes inform scorecards and follow-up discussions.</p>
+            <div class="callout"><strong>Key Takeaway</strong>Use BrightHire for anything related to live interviews and intake calls — recording, transcription, and structured notes.</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-chatgpt')">Next: ChatGPT, Claude, Gemini & Copilot →</button>
+      </div>
+    </div>
+
+    <!-- M3: CHATGPT -->
+    <div id="m3-chatgpt" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">4</div>
+          <div class="lesson-title">Deep Dive – ChatGPT, Claude, Gemini & Copilot</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 6 · When to Use ChatGPT & Claude</div>
+            <h3>ChatGPT & Claude – For Outputs Glean Can't Build</h3>
+            <p><strong>The rule of thumb:</strong> Start with Glean. Use ChatGPT or Claude only when Glean can't produce what you need.</p>
+            <p><strong>Concrete examples of when ChatGPT / Claude make sense:</strong></p>
+            <ul>
+              <li>Building a formatted HTML artifact or slide deck (e.g., this Learning Academy module was built in Claude).</li>
+              <li>Creating a net-new JD template from scratch — no internal doc to reference, starting from a blank page.</li>
+              <li>Writing a new scorecard or interview guide structure when no existing template fits the role.</li>
+              <li>Drafting a new prompt for the Prompt Library when you want to test and refine it before adding it to Glean.</li>
+              <li>Building something with complex formatting (tables, multi-section layouts) that Glean doesn't render well.</li>
+            </ul>
+            <p><strong>Important guardrails:</strong></p>
+            <ul>
+              <li>Use only approved company accounts — not personal accounts.</li>
+              <li>Do <strong>not</strong> paste candidate names, contact info, or confidential client details.</li>
+              <li>Treat all outputs as drafts — review before using or sharing.</li>
+            </ul>
+            <div class="callout"><strong>Key Takeaway</strong>If Glean can do it, use Glean. ChatGPT / Claude are for specific outputs that require formatting, creation from scratch, or capabilities outside Glean's scope.</div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-label">Screen 7 · Productivity AI</div>
+            <h3>Gemini & Copilot – Built Into Your Productivity Tools</h3>
+            <table class="tool-table">
+              <thead><tr><th>Tool</th><th>Lives In</th><th>Good For</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Gemini (Google)</td>
+                  <td>Gmail, Docs, Sheets, Slides</td>
+                  <td>Polishing HM emails · Summarizing long docs · Turning bullets into structured text</td>
+                </tr>
+                <tr>
+                  <td>Copilot (Microsoft)</td>
+                  <td>Outlook, Word, Teams</td>
+                  <td>Drafting or refining exec-facing emails · Summarizing meeting notes · M365 documents</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout">
+              <strong>Guardrail Reminder</strong>
+              Both tools are covered by our company accounts, but still: follow Module 1 guardrails (privacy, bias, human-in-the-loop) and be thoughtful about candidate or client info you paste in.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-activity')">Next: Activity →</button>
+      </div>
+    </div>
+
+    <!-- M3: ACTIVITY -->
+    <div id="m3-activity" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">5</div>
+          <div class="lesson-title">Activity – Pick the Right Tool for the Job</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+          <div class="screen">
+            <div class="screen-label">Screen 8 · Scenario Activity</div>
+            <div class="activity-card">
+              <span class="activity-tag">WorkRamp Task</span>
+              <h3>If You Need X, Start With Y</h3>
+              <p style="font-size:13px; color:rgba(255,255,255,0.8); margin-bottom:16px;">For each scenario, choose the tool you'd start with and explain why in 1–2 sentences.</p>
+            </div>
+
+            <table class="scenario-table" style="margin-top:16px;">
+              <thead><tr><th>Scenario</th><th>Situation</th><th>Expected Starting Tool</th></tr></thead>
+              <tbody>
+                <tr><td>A</td><td>You just finished a recruiter screen and have messy notes. You need a clean summary for the hiring manager.</td><td><span class="scenario-answer">Glean</span></td></tr>
+                <tr><td>B</td><td>You have a candidate tracker in Google Sheets and need to quickly turn the data into a formatted summary table. You're already working in the spreadsheet.</td><td><span class="scenario-answer">Gemini</span></td></tr>
+                <tr><td>C</td><td>You have a long JD and intake doc from a hiring manager. You need a short, skimmable version for candidates.</td><td><span class="scenario-answer">Glean</span></td></tr>
+                <tr><td>D</td><td>A hiring manager wants to record interviews and get AI-generated summaries they can quickly skim.</td><td><span class="scenario-answer">BrightHire</span></td></tr>
+                <tr><td>E</td><td>You want to know if we already have internal playbooks, scorecards, or prompts for a new Advisory role.</td><td><span class="scenario-answer">Glean</span></td></tr>
+              </tbody>
+            </table>
+
+            <div class="short-answer" style="margin-top:20px;">
+              <p style="font-size:13px; font-weight:600; color:var(--navy); margin-bottom:8px;">Your answers (type your tool choice + 1–2 sentences for each scenario)</p>
+              <textarea placeholder="Scenario A: I would use...&#10;Scenario B: I would use...&#10;Scenario C: I would use...&#10;Scenario D: I would use...&#10;Scenario E: I would use..." style="min-height:140px;"></textarea>
+            </div>
+
+            <div class="admin-box" style="margin-top:20px;">
+              <h4>Admin Note</h4>
+              <ul>
+                <li>WorkRamp object type: <strong>Task</strong> (free-response submission).</li>
+                <li>Facilitators can share answer key (Expected Starting Tool column) after submission window closes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <button class="quiz-submit-btn" onclick="showSection('m3-quiz')">Next: Knowledge Check →</button>
+      </div>
+    </div>
+
+    <!-- M3: QUIZ -->
+    <div id="m3-quiz" class="section">
+      <div class="lesson">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-num">6</div>
+          <div class="lesson-title">Knowledge Check – Module 3</div>
+          <div class="lesson-toggle open">▼</div>
+        </div>
+        <div class="lesson-body open">
+
+          <!-- Q1 -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 1 · Multiple Choice</div>
+            <div class="quiz-q">You need to summarize a candidate screen into a structured hiring-manager-ready summary, and your notes are stored in Google Docs and Greenhouse. Which tool is the best starting point?</div>
+            <ul class="quiz-options" id="q3-1">
+              <li onclick="selectOption(this,'wrong','q3-1','q3-1-reveal')"><div class="opt-radio"></div> ChatGPT (personal account)</li>
+              <li onclick="selectOption(this,'right','q3-1','q3-1-reveal')"><div class="opt-radio"></div> Glean ✓</li>
+              <li onclick="selectOption(this,'wrong','q3-1','q3-1-reveal')"><div class="opt-radio"></div> Gemini on your personal Gmail</li>
+              <li onclick="selectOption(this,'wrong','q3-1','q3-1-reveal')"><div class="opt-radio"></div> Copilot in Word</li>
+            </ul>
+            <div class="quiz-answer-reveal" id="q3-1-reveal">✅ <strong>Glean</strong> — it accesses internal systems (Drive, Greenhouse) with permissions already in place, and has TA agents built for this exact task.</div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 2 · Multiple Choice</div>
+            <div class="quiz-q">Which tool is the only approved platform for recording live interviews and generating AI summaries from those recordings?</div>
+            <ul class="quiz-options" id="q3-2">
+              <li onclick="selectOption(this,'wrong','q3-2','q3-2-reveal')"><div class="opt-radio"></div> Glean</li>
+              <li onclick="selectOption(this,'right','q3-2','q3-2-reveal')"><div class="opt-radio"></div> BrightHire ✓</li>
+              <li onclick="selectOption(this,'wrong','q3-2','q3-2-reveal')"><div class="opt-radio"></div> ChatGPT</li>
+              <li onclick="selectOption(this,'wrong','q3-2','q3-2-reveal')"><div class="opt-radio"></div> Gemini</li>
+            </ul>
+            <div class="quiz-answer-reveal" id="q3-2-reveal">✅ <strong>BrightHire</strong> — it's the only approved tool for recording interviews, and it integrates directly with Greenhouse.</div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 3 · Multiple Choice (Scenario)</div>
+            <div class="quiz-q">You've already produced a Google Doc in Glean. Now your hiring manager wants a quick slide deck version. Which tool do you use?</div>
+            <ul class="quiz-options" id="q3-3">
+              <li onclick="selectOption(this,'wrong','q3-3','q3-3-reveal')"><div class="opt-radio"></div> Glean — it already has the content</li>
+              <li onclick="selectOption(this,'wrong','q3-3','q3-3-reveal')"><div class="opt-radio"></div> BrightHire — it can export interview summaries as slides</li>
+              <li onclick="selectOption(this,'right','q3-3','q3-3-reveal')"><div class="opt-radio"></div> Claude or ChatGPT (approved company account) — to generate the slide deck ✓</li>
+              <li onclick="selectOption(this,'wrong','q3-3','q3-3-reveal')"><div class="opt-radio"></div> Gemini — paste the Glean output into Gmail and ask it to make slides</li>
+            </ul>
+            <div class="quiz-answer-reveal" id="q3-3-reveal">✅ Glean is great for docs and summaries, but slide deck generation is where Claude or ChatGPT (via an approved account) fills the gap. Use Glean to pull the content, then hand it off to Claude/ChatGPT to build the deck.</div>
+          </div>
+
+          <!-- Q4 True/False -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 4 · True / False</div>
+            <div class="quiz-q">It's okay to paste full candidate names and email addresses into your personal ChatGPT account if you're on your work laptop.</div>
+            <div class="quiz-true-false">
+              <div class="tf-btn" onclick="selectTF(this, false, 'q3-4-reveal')">True</div>
+              <div class="tf-btn" onclick="selectTF(this, true, 'q3-4-reveal')">False ✓</div>
+            </div>
+            <div class="quiz-answer-reveal" id="q3-4-reveal">✅ <strong>False.</strong> Personal accounts are not approved for candidate PII — regardless of what device you're on. Always use company-managed accounts or Glean.</div>
+          </div>
+
+          <!-- Q5 Short Answer -->
+          <div class="quiz-card">
+            <div class="quiz-q-num">Question 5 · Short Answer (Reflection)</div>
+            <div class="quiz-q">In your own words: when would you choose Glean over ChatGPT/Claude?</div>
+            <div class="short-answer">
+              <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+          </div>
+
+          <div class="admin-box">
+            <h4>Admin Notes – Module 3</h4>
+            <ul>
+              <li>WorkRamp object types: Lessons 1–4 → <strong>Content</strong> blocks · Lesson 5 → <strong>Task</strong> · Lesson 6 → <strong>Quiz</strong></li>
+              <li>Prerequisite: Module 2 must be completed before Module 3 unlocks.</li>
+              <li>Embed links: Glean TA agent page · BrightHire help docs · TA Prompt Library (GitHub Pages) · Module 1 guardrails reference.</li>
+              <li>Q5 short-answer responses are useful for identifying team members who may need 1:1 follow-up.</li>
+            </ul>
+          </div>
+
+          <div class="callout" style="margin-top:20px; font-size:14px; text-align:center;">
+            🎉 <strong>You've completed Modules 2 & 3 of the AI × TA Learning Academy.</strong><br>
+            <span style="font-weight:400;">Next up: Module 4 – Agents & Advanced Workflows.</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
-
-<!-- TIPS -->
-<div class="tips">
-  <h3>Quick Tips — the 60-second version</h3>
-  <div class="tips-row">
-    <div class="tip"><span>✅</span>Vague prompt = vague answer. Be specific.</div>
-    <div class="tip"><span>✅</span>Always tell it the audience (HM, candidate, exec)</div>
-    <div class="tip"><span>✅</span>Specify tone: professional / casual / concise</div>
-    <div class="tip"><span>✅</span>If the first output isn't right — refine, don't restart</div>
-    <div class="tip"><span>🚫</span>Never paste candidate names or personal data</div>
-    <div class="tip"><span>🚫</span>Never send AI output without reviewing it first</div>
-  </div>
-</div>
-
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab all active" onclick="filter('all')">All Prompts</button>
-  <button class="tab" onclick="filter('sourcing')">Sourcing</button>
-  <button class="tab" onclick="filter('jd')">Job Descriptions</button>
-  <button class="tab" onclick="filter('messaging')">Messaging</button>
-  <button class="tab" onclick="filter('summarizing')">Summarizing</button>
-  <button class="tab" onclick="filter('screening')">Screening</button>
-  <button class="tab" onclick="filter('misc')">Misc</button>
-</div>
-
-<!-- PROMPT GRID -->
-<div class="prompt-grid" id="grid">
-
-<!-- 1. Boolean Builder -->
-<div class="prompt-card" data-cat="sourcing">
-  <div class="card-header">
-    <div class="card-cat cat-sourcing">Sourcing</div>
-    <div class="card-title">Boolean String Builder</div>
-    <div class="card-meta">Best for: LinkedIn Recruiter, job boards</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need a Boolean search string for a role and want to save 10+ minutes of manual string-building.</div>
-    <div class="prompt-box" id="p1">Act as an expert technical recruiter with 10+ years sourcing data and AI talent.
-
-Build a Boolean search string for LinkedIn Recruiter to find candidates for a <span class="fill">[JOB TITLE]</span> role at a <span class="fill">[COMPANY TYPE]</span>.
-
-Key requirements:
-- <span class="fill">[SKILL 1]</span>
-- <span class="fill">[SKILL 2]</span>
-- <span class="fill">[SKILL 3]</span>
-
-Location: <span class="fill">[CITY / REMOTE]</span>
-Exclude: <span class="fill">[TITLES OR COMPANIES TO EXCLUDE]</span>
-
-Output a clean Boolean string I can paste directly into LinkedIn Recruiter. Then give me 2 alternate versions — one broader, one narrower.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Sourcing</span>
-    <button class="copy-btn" onclick="copyPrompt('p1',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 2. Target Company List -->
-<div class="prompt-card" data-cat="sourcing">
-  <div class="card-header">
-    <div class="card-cat cat-sourcing">Sourcing</div>
-    <div class="card-title">Target Company List Generator</div>
-    <div class="card-meta">Best for: outbound sourcing campaigns</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need a list of companies where your ideal candidate profile is likely to work right now.</div>
-    <div class="prompt-box" id="p2">Act as a talent sourcing strategist.
-
-I'm recruiting for a <span class="fill">[JOB TITLE]</span> role focused on <span class="fill">[KEY SKILL / DOMAIN]</span>.
-
-Give me a list of 15 target companies where strong candidates for this role are likely working today. Include:
-- Company name
-- Why it's a good source (1 sentence)
-- Likely job title they'd hold there
-
-Focus on: <span class="fill">[INDUSTRY / COMPANY TYPE / SIZE]</span>
-Exclude: phData and direct competitors I shouldn't poach from: <span class="fill">[LIST IF ANY]</span></div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Sourcing</span>
-    <button class="copy-btn" onclick="copyPrompt('p2',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 3. Two Levels One JD -->
-<div class="prompt-card" data-cat="jd">
-  <div class="card-header">
-    <div class="card-cat cat-jd">Job Descriptions</div>
-    <div class="card-title">Two Levels, One JD</div>
-    <div class="card-meta">Best for: Lead / Principal, Sr / Lead roles</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need one posting that covers two levels without anchoring candidate expectations to a specific title.</div>
-    <div class="prompt-box" id="p3">Act as an organizational psychologist and executive recruiting expert with 20+ years in consulting.
-
-I need to write a single job description that covers both <span class="fill">[LEVEL 1, e.g. Lead]</span> and <span class="fill">[LEVEL 2, e.g. Principal]</span> for a <span class="fill">[ROLE NAME]</span> at phData.
-
-The posting title should read: <span class="fill">[BROAD TITLE, e.g. "Data Governance Leader"]</span>
-At the top of the JD body, add: "Target Levels: Lead or Principal"
-
-In the responsibilities and requirements sections, include clear differentiators for each level so candidates can self-identify — without us committing to a title upfront.
-
-Here is the draft JD to work from:
-<span class="fill">[PASTE JD HERE]</span>
-
-Condense it, remove redundancies, keep all critical information, and add level differentiators. Ask me if you need clarification.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Job Descriptions</span>
-    <button class="copy-btn" onclick="copyPrompt('p3',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 4. JD Simplifier -->
-<div class="prompt-card" data-cat="jd">
-  <div class="card-header">
-    <div class="card-cat cat-jd">Job Descriptions</div>
-    <div class="card-title">JD Simplifier & Tightener</div>
-    <div class="card-meta">Best for: cleaning up long or stale JDs</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">A JD is too long, has jargon, or doesn't reflect what we're actually hiring for.</div>
-    <div class="prompt-box" id="p4">Act as a senior talent brand specialist at a data and AI consulting firm.
-
-Rewrite the job description below to be:
-- Shorter (target: under 400 words)
-- Clear and jargon-free
-- Compelling to a <span class="fill">[SENIORITY LEVEL]</span> candidate who values impact and technical challenge
-- Accurate to what we actually need (don't add fluff)
-
-Keep all must-have requirements. Remove anything that's nice-to-have padding.
-
-JD to rewrite:
-<span class="fill">[PASTE JD HERE]</span></div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Job Descriptions</span>
-    <button class="copy-btn" onclick="copyPrompt('p4',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 5. LinkedIn InMail -->
-<div class="prompt-card" data-cat="messaging">
-  <div class="card-header">
-    <div class="card-cat cat-messaging">Messaging</div>
-    <div class="card-title">LinkedIn InMail — First Touch</div>
-    <div class="card-meta">Best for: outbound passive candidate outreach</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You're reaching out cold to a passive candidate and want a message that gets a reply.</div>
-    <div class="prompt-box" id="p5">Act as an experienced recruiter at a top-tier data and AI consulting firm.
-
-Write a first-touch LinkedIn InMail to a passive candidate for a <span class="fill">[JOB TITLE]</span> role.
-
-Candidate background (from their profile):
-- Current role: <span class="fill">[CURRENT TITLE & COMPANY]</span>
-- Key experience: <span class="fill">[1-2 RELEVANT THINGS FROM THEIR PROFILE]</span>
-
-About the role:
-- <span class="fill">[1-2 COMPELLING THINGS ABOUT THE ROLE OR COMPANY]</span>
-
-Constraints:
-- Under 100 words
-- Conversational, not salesy
-- End with a low-friction question (not "are you open to new opportunities?")
-- Do not mention compensation</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Messaging</span>
-    <button class="copy-btn" onclick="copyPrompt('p5',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 6. Follow-Up Message -->
-<div class="prompt-card" data-cat="messaging">
-  <div class="card-header">
-    <div class="card-cat cat-messaging">Messaging</div>
-    <div class="card-title">Candidate Follow-Up Message</div>
-    <div class="card-meta">Best for: after interview, no response, offer stage</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need to follow up with a candidate at any stage and want it to feel human, not templated.</div>
-    <div class="prompt-box" id="p6">Act as a thoughtful, candidate-focused recruiter.
-
-Write a follow-up message to a candidate after <span class="fill">[STAGE: e.g., recruiter screen / final interview / offer sent]</span>.
-
-Context:
-- Candidate name: <span class="fill">[FIRST NAME ONLY — remove before sending to AI]</span>
-- What happened: <span class="fill">[BRIEF DESCRIPTION OF LAST INTERACTION]</span>
-- Next step: <span class="fill">[WHAT YOU NEED FROM THEM OR WHAT'S HAPPENING NEXT]</span>
-
-Tone: warm, direct, respectful of their time
-Length: 3–5 sentences max
-Format: ready to send via email or LinkedIn</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Messaging</span>
-    <button class="copy-btn" onclick="copyPrompt('p6',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 7. Recruiter Screen Summarizer -->
-<div class="prompt-card" data-cat="summarizing">
-  <div class="card-header">
-    <div class="card-cat cat-summarizing">Summarizing</div>
-    <div class="card-title">Recruiter Screen Summary</div>
-    <div class="card-meta">Best for: HM-ready candidate summaries</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">Right after a recruiter screen. Paste your raw notes and get a clean, structured summary for the hiring manager.</div>
-    <div class="prompt-box" id="p7">Act as a senior recruiter summarizing a candidate screen for a hiring manager.
-
-Role: <span class="fill">[JOB TITLE]</span>
-
-Here are my raw notes from the screen:
-<span class="fill">[PASTE YOUR NOTES — no candidate full name or personal data]</span>
-
-Produce a structured summary with these four sections:
-1. Snapshot (2–3 sentences: who they are, overall impression)
-2. Preferences (what they're looking for, motivations, flexibility)
-3. Highlights (top 3 strengths relevant to this role)
-4. Flags (anything to probe deeper or that's a concern)
-
-Keep it concise. Write it for a hiring manager who has 60 seconds to read it.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Summarizing</span>
-    <button class="copy-btn" onclick="copyPrompt('p7',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 8. Intake Notes Summarizer -->
-<div class="prompt-card" data-cat="summarizing">
-  <div class="card-header">
-    <div class="card-cat cat-summarizing">Summarizing</div>
-    <div class="card-title">Intake Meeting Summary</div>
-    <div class="card-meta">Best for: post-intake recap to HM or TA ops</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">After an intake call — turn messy notes into a clean, shareable summary that aligns everyone on the req.</div>
-    <div class="prompt-box" id="p8">Act as a recruiting coordinator summarizing an intake meeting.
-
-Role: <span class="fill">[JOB TITLE]</span>
-Hiring Manager: <span class="fill">[HM FIRST NAME / TEAM]</span>
-
-Here are my intake notes:
-<span class="fill">[PASTE NOTES]</span>
-
-Summarize into:
-- Role overview (1–2 sentences)
-- Must-have requirements (bullet list)
-- Nice-to-have requirements (bullet list)
-- Red flags / dealbreakers
-- Interview process agreed on
-- Any open questions to follow up on
-
-Keep it scannable. Write it so a recruiter who wasn't on the call can run with it.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Summarizing</span>
-    <button class="copy-btn" onclick="copyPrompt('p8',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 9. Screening Questions -->
-<div class="prompt-card" data-cat="screening">
-  <div class="card-header">
-    <div class="card-cat cat-screening">Screening</div>
-    <div class="card-title">Custom Screening Questions</div>
-    <div class="card-meta">Best for: application screeners, phone screens</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need a set of screening questions that will quickly surface whether a candidate is worth advancing.</div>
-    <div class="prompt-box" id="p9">Act as a senior technical recruiter at a data and AI consulting firm.
-
-Generate 5 screening questions for a <span class="fill">[JOB TITLE]</span> role.
-
-Requirements to screen for:
-- <span class="fill">[REQUIREMENT 1]</span>
-- <span class="fill">[REQUIREMENT 2]</span>
-- <span class="fill">[REQUIREMENT 3]</span>
-
-For each question, include:
-- The question itself
-- What a strong answer looks like (1 sentence)
-- What's a red flag answer (1 sentence)
-
-Keep questions open-ended. Avoid yes/no questions. Focus on real experience, not hypotheticals.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Screening</span>
-    <button class="copy-btn" onclick="copyPrompt('p9',this)">Copy Prompt</button>
-  </div>
-</div>
-
-<!-- 10. Rejection Email -->
-<div class="prompt-card" data-cat="misc">
-  <div class="card-header">
-    <div class="card-cat cat-misc">Misc</div>
-    <div class="card-title">Candidate Rejection Email</div>
-    <div class="card-meta">Best for: post-screen, post-interview declines</div>
-  </div>
-  <div class="card-body">
-    <div class="when-label">When to use</div>
-    <div class="when-text">You need to decline a candidate respectfully — at any stage — without it sounding like a form letter.</div>
-    <div class="prompt-box" id="p10">Act as a recruiter who cares about candidate experience.
-
-Write a rejection email for a candidate who reached <span class="fill">[STAGE: e.g., recruiter screen / final interview]</span> for a <span class="fill">[JOB TITLE]</span> role.
-
-Reason for decline (internal only — don't state this directly): <span class="fill">[REASON]</span>
-
-Tone: warm, honest, respectful — not corporate
-Length: 4–6 sentences
-Do: thank them genuinely, leave the door open if appropriate
-Do not: use phrases like "we've decided to move forward with other candidates" or "we'll keep your resume on file"
-
-No candidate name needed — I'll personalize before sending.</div>
-  </div>
-  <div class="card-footer">
-    <span class="pill">Misc</span>
-    <button class="copy-btn" onclick="copyPrompt('p10',this)">Copy Prompt</button>
-  </div>
-</div>
-
-</div><!-- /grid -->
-
-<div class="page-footer">
-  phData Talent Acquisition · AI Prompt Library · Q1 2026 · Built with Glean + Claude<br>
-  <span style="color:#1ABC9C;font-weight:600;">Questions? Add a prompt?</span> Reach out to Ernie Campos
-</div>
-
-</div><!-- /container -->
 
 <script>
-function filter(cat){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.prompt-card').forEach(c=>{
-    c.classList.toggle('hidden', cat!=='all' && c.dataset.cat!==cat);
-  });
-}
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) { el.classList.add('visible'); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+    const links = document.querySelectorAll('.sidebar-link');
+    links.forEach(l => { if (l.getAttribute('onclick') && l.getAttribute('onclick').includes(id)) l.classList.add('active'); });
+  }
 
-function copyPrompt(id, btn){
-  const el=document.getElementById(id);
-  // Get text only, strip HTML tags
-  const text=el.innerText||el.textContent;
-  navigator.clipboard.writeText(text.trim()).then(()=>{
-    btn.textContent='Copied!';
-    btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent='Copy Prompt';btn.classList.remove('copied');},2000);
-  });
-}
+  function toggleLesson(header) {
+    const body = header.nextElementSibling;
+    const toggle = header.querySelector('.lesson-toggle');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    toggle.classList.toggle('open', !isOpen);
+  }
+
+  function selectOption(el, type, groupId, revealId) {
+    const group = document.getElementById(groupId);
+    if (group.querySelector('.correct, .incorrect')) return;
+    if (type === 'right') {
+      el.classList.add('correct');
+    } else {
+      el.classList.add('incorrect');
+      // Highlight the correct one
+      const items = group.querySelectorAll('li');
+      items.forEach(item => {
+        if (item.textContent.includes('✓')) item.classList.add('revealed-correct');
+      });
+    }
+    const reveal = document.getElementById(revealId);
+    if (reveal) reveal.classList.add('show');
+  }
+
+  function selectTF(btn, isCorrect, revealId) {
+    const container = btn.parentElement;
+    if (container.querySelector('.correct, .incorrect')) return;
+    if (isCorrect) {
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('incorrect');
+      const sibling = btn === container.children[0] ? container.children[1] : container.children[0];
+      sibling.classList.add('correct');
+    }
+    const reveal = document.getElementById(revealId);
+    if (reveal) reveal.classList.add('show');
+  }
+
+  // Init: activate first link
+  document.querySelector('.sidebar-link').classList.add('active');
 </script>
 </body>
 </html>
